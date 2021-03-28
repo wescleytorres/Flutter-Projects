@@ -1,0 +1,27 @@
+[
+  {
+    "name": "jean",
+    "email": "jean@dev.com",
+    "idade": 26
+  },
+  {
+    "name": "bruna",
+    "email": "bruna@dev.com",
+    "idade": 27
+  },
+  {
+    "name": "bruna2",
+    "email": "bruna@dev.com",
+    "idade": 27
+  },
+  {
+    "name": "bruna3",
+    "email": "bruna@dev.com",
+    "idade": 27
+  },
+  {
+    "name": "bruna4",
+    "email": "bruna@dev.com",
+    "idade": 27
+  }
+]
