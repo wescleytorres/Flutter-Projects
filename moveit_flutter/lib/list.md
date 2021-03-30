@@ -29,20 +29,4 @@
     
       List data;
 
-  Future<String> loadJsonData() async {
-    var jsonText = await rootBundle.loadString('assets/data.json');
-    setState(() => data = json.decode(jsonText));
-    return 'success';
-  }
 
-  @override
-  void initState() {
-    super.initState();
-
-    this.loadJsonData();
-  }
-
-  import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
-import 'package:flutter/services.dart';

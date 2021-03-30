@@ -1,24 +1,18 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
-class TimeControler extends ChangeNotifier {
-  static TimeControler instance = TimeControler();
+class TimeController extends ChangeNotifier {
+  static TimeController instance = TimeController();
 
   bool isActive = false;
   bool hasFinished = false;
 
   changeCounter() {
-    if (!isActive) {
-      isActive = true;
-    }
-
+    isActive = !isActive;
     notifyListeners();
   }
 
-  resetCountdown() {
-    // time = 25 * 60;
-    isActive = false;
-    hasFinished = false;
+  finishCounter() {
+    hasFinished = !hasFinished;
     notifyListeners();
   }
 }

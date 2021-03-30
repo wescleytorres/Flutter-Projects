@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:moveit_flutter/app/controllers/theme_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:moveit_flutter/app/controllers/time_controller.dart';
 import '../../constants.dart';
 
 class CountDown extends StatefulWidget {
@@ -19,25 +20,40 @@ class _CountDownState extends State<CountDown> {
   Timer timer;
 
   void _startCount() {
+    TimeController.instance.changeCounter();
+    time--;
+    setState(() {
+      timeMinutes = (time / 60).floor();
+      timeSeconds = time.toInt() % 60;
+    });
+
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (time > 0) {
-          time--;
+      if (time > 0) {
+        time--;
+        setState(() {
           timeMinutes = (time / 60).floor();
           timeSeconds = time.toInt() % 60;
+        });
+      } else {
+        _resetCount();
+        TimeController.instance.finishCounter();
+      }
+    });
+  }
 
-          //aqui so pra teste
-          print(timeSeconds);
-          if (timeSeconds == 56) {
-            timer.cancel();
-          }
-        }
-      });
+  void _resetCount() {
+    TimeController.instance.changeCounter();
+    timer.cancel();
+    time = 0.1 * 60;
+    setState(() {
+      timeMinutes = (time / 60).floor();
+      timeSeconds = time.toInt() % 60;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isCountdownActive = TimeController.instance.isActive;
     return Expanded(
       child: Container(
         child: Column(
@@ -68,9 +84,18 @@ class _CountDownState extends State<CountDown> {
               ],
             ),
             ElevatedButton.icon(
-              label: Text('Iniciar um ciclo'),
-              icon: Icon(Icons.play_arrow_rounded),
-              onPressed: _startCount,
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      isCountdownActive ? Colors.white : kBlue1),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                      isCountdownActive ? kText : null)),
+              label: Text(
+                isCountdownActive ? 'Abandonar ciclo' : 'Iniciar um ciclo',
+              ),
+              icon: Icon(isCountdownActive
+                  ? Icons.close_rounded
+                  : Icons.play_arrow_rounded),
+              onPressed: isCountdownActive ? _resetCount : _startCount,
             ),
           ],
         ),

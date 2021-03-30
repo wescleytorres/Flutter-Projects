@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moveit_flutter/app/components/ChallengeContext.dart';
 import 'package:moveit_flutter/app/controllers/menu_controller.dart';
 import 'package:moveit_flutter/app/controllers/theme_controller.dart';
 import 'package:moveit_flutter/constants.dart';
 
 import '../components/Profile.dart';
 import '../components/BarExperience.dart';
-import '../components/ChallengeBox.dart';
+
 import '../components/CountDown.dart';
 import '../components/Menu.dart';
 
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 BarExperience(),
                 Profile(),
-                ChallengeBox(),
+                ChallengeContext(),
                 CountDown(),
               ],
             ),
