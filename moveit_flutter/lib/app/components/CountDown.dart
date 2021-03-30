@@ -14,9 +14,9 @@ class CountDown extends StatefulWidget {
 NumberFormat formatter = NumberFormat("00");
 
 class _CountDownState extends State<CountDown> {
-  static double time = 0.1 * 60;
+  static int time = 25 * 60;
   int timeMinutes = (time / 60).floor();
-  int timeSeconds = time.toInt() % 60;
+  int timeSeconds = time % 60;
   Timer timer;
 
   void _startCount() {
@@ -24,7 +24,7 @@ class _CountDownState extends State<CountDown> {
     time--;
     setState(() {
       timeMinutes = (time / 60).floor();
-      timeSeconds = time.toInt() % 60;
+      timeSeconds = time % 60;
     });
 
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -44,7 +44,7 @@ class _CountDownState extends State<CountDown> {
   void _resetCount() {
     TimeController.instance.changeCounter();
     timer.cancel();
-    time = 0.1 * 60;
+    time = 25 * 60;
     setState(() {
       timeMinutes = (time / 60).floor();
       timeSeconds = time.toInt() % 60;

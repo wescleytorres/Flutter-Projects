@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:moveit_flutter/app/components/CongratulationLvlup.dart';
 import 'package:moveit_flutter/app/controllers/time_controller.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
@@ -94,38 +95,52 @@ class _ActivedChallengeState extends State<ActivedChallenge> {
           ),
           Text(
             '$descriptionChallenge',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: TextStyle(
+                color: kText, fontSize: 16, fontWeight: FontWeight.w400),
             textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 5,
           ),
-          Row(
-            children: [
-              Expanded(
-                  child: ElevatedButton(
-                onPressed: () {
-                  TimeController.instance.finishCounter();
-                },
-                child: Text('Falhei'),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(kRed)),
-              )),
-              SizedBox(
-                width: 3,
-              ),
-              Expanded(
-                  child: ElevatedButton(
-                onPressed: () {
-                  TimeController.instance.finishCounter();
-                  XpController.instance.countXp(amoutXp);
-                  print(XpController.instance.xpAmount);
-                },
-                child: Text('Completei'),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(kGreen)),
-              )),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 5, right: 5),
+            child: Row(
+              children: [
+                Expanded(
+                    child: ElevatedButton(
+                  onPressed: () {
+                    TimeController.instance.finishCounter();
+                  },
+                  child: Text('Falhei'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(kRed),
+                  ),
+                )),
+                SizedBox(
+                  width: 3,
+                ),
+                Expanded(
+                    child: ElevatedButton(
+                  onPressed: () {
+                    TimeController.instance.finishCounter();
+                    XpController.instance.countXp(amoutXp);
+                    if (XpController.instance.isLevelUp) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CongratulationLevelUp();
+                        },
+                        barrierDismissible: false,
+                      );
+                    }
+                  },
+                  child: Text('Completei'),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(kGreen)),
+                )),
+              ],
+            ),
           )
         ],
       ),
