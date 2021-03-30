@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:moveit_flutter/app/controllers/xp_controller.dart';
 import 'package:moveit_flutter/constants.dart';
 
@@ -7,8 +6,6 @@ class BarExperience extends StatefulWidget {
   @override
   _BarExperienceState createState() => _BarExperienceState();
 }
-
-NumberFormat formatter = NumberFormat("0.00");
 
 class _BarExperienceState extends State<BarExperience> {
   @override
